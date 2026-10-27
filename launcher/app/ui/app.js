@@ -65,7 +65,7 @@ function vInicio() {
   const ic = (d) => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); const p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('d', d); s.append(p); return s; };
   const lo = (icon, k, val) => h('button', { class: 'lo', onclick: () => go('ajustes') }, ic(icon), h('span', {}, h('small', { text: k }), val));
   const notes = [];
-  if (!base) notes.push(['bad', 'No hay ninguna edición base compatible. Importa la ISO PAL o añade la carpeta ya extraída en Fuentes.']);
+  if (!base) notes.push(['bad', 'Primer arranque: aporta tu propia copia legítima del juego (ISO PAL/USA-Europa o su carpeta ya extraída). El launcher comprueba que es la versión compatible y configura las rutas solo; no se incluye ni se descarga ningún archivo del juego.']);
   return h('section', {},
     h('div', { class: 'shelf one' }, h('div', { class: 'slot' }, cover,
       h('div', { class: 'loadout glass' },
@@ -73,7 +73,8 @@ function vInicio() {
         lo('M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3zM5 11a7 7 0 0 0 14 0M12 18v3', 'Voces', v ? (v.kind === 'base' ? 'Originales' : 'Japonesas') : '—'),
         lo('M3 5h18v11H3zM8 21h8M12 16v5', 'Pantalla', `${g.n3_frame_rate} FPS · ${g.n3_display_resolution}p · ${g.resolution_scale}×`)),
       h('div', { class: 'actions' },
-        base ? null : h('button', { class: 'pill sm gold', disabled: !!S.busy, onclick: act(async () => { const r = await call('importPal'); if (r) apply(r); }) }, 'Importar ISO PAL…'),
+        base ? null : h('button', { class: 'pill sm gold', disabled: !!S.busy, onclick: act(async () => { const r = await call('importPal'); if (r) apply(r); }) }, 'Importar mi ISO PAL…'),
+        base ? null : h('button', { class: 'pill sm', disabled: !!S.busy, onclick: act(async () => apply(await call('addSource'))) }, 'Ya la tengo extraída: añadir carpeta…'),
         h('button', { class: 'pill sm', onclick: () => go('ajustes') }, 'Ajustes')))),
     notes.length ? h('div', { class: 'glass notes' }, notes.map(([k, t]) => h('div', { class: 'note ' + k }, t))) : null);
 }
