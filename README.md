@@ -1,217 +1,120 @@
-# N3 Recompiled
+<p align="center">
+  <img src="launcher/app/ui/art/portada.jpg" alt="DONELYS ENTRETENIMIENTO · N3: Ninety-Nine Nights" width="520">
+</p>
 
-<img src="resources/n3-icon.png" width="128" height="128" alt="N3 Recompiled icon">
+<h1 align="center">DONELYS · N3: NINETY-NINE NIGHTS</h1>
+<p align="center"><b>Edición para Windows · Windows edition</b></p>
 
-A native Windows recompilation project for **N3: Ninety-Nine Nights**, built from
-the Xbox 360 executable with [ReXGlue](https://github.com/rexglue/rexglue-sdk).
-PowerPC game code is translated to C++ ahead of time. ReXGlue supplies the Xbox
-runtime and its Xenos GPU plugin uses Direct3D 12.
+<p align="center">
+  <a href="#español">Español</a> ·
+  <a href="#english">English</a> ·
+  <a href="https://github.com/donelysentretenimiento/Donelys-N3recomp/releases/latest">Descargas · Downloads</a> ·
+  <a href="DONELYS-INGAME.md">Menú y diagnóstico · Menu and diagnostics</a> ·
+  <a href="THIRD_PARTY-NOTICES.md">Licencias · Licenses</a>
+</p>
 
-The generated game code is already C++. Development replaces its register and
-guest-memory operations with readable, typed engine interfaces and explicit
-state. Python remains part of build/release tooling, separate from game logic.
+<p align="center">
+  <img alt="Licencia de lo propio" src="https://img.shields.io/badge/c%C3%B3digo%20propio-GPL--3.0--or--later-blue">
+  <img alt="Plataforma" src="https://img.shields.io/badge/plataforma-Windows%2010%2F11%20x64-0078d4">
+  <img alt="Estado" src="https://img.shields.io/badge/estado-preview-orange">
+  <img alt="Idiomas" src="https://img.shields.io/badge/docs-ES%20%7C%20EN-a41e22">
+</p>
 
-**Windows alpha:** the opening mission has been completed, the following
-cutscene played, and saving and loading progress work on the tested opening route.
-Full-game coverage remains unvalidated. See [development status](docs/STATUS.md).
+> **Este repositorio no contiene el juego.** No incluye ISO, `default.xex`, audio, textos extraídos ni claves. Necesitas tu propia copia legítima de *N3: Ninety-Nine Nights* (PAL / USA-Europa).
+> **This repository does not contain the game.** No ISO, `default.xex`, audio, extracted text or keys. You need your own legitimate copy of *N3: Ninety-Nine Nights* (PAL / USA-Europe).
 
-No game assets, original executable, generated game translations, or downloaded
-toolchain binaries are tracked. Supply your own game data. The supported executable
-is identified in [game-build.json](docs/game-build.json).
+---
 
-## Play the Windows alpha
+## Español
 
-**[Download for Windows (x64)](https://github.com/WK2D/N3-Ninety-Nine-Nights-Recomp/releases/download/v0.1.0-alpha.12/N3-Recompiled-v0.1.0-alpha.12-windows-x64.zip)**
+### Qué es
+DONELYS · N3 es una edición independiente del recompilador nativo de *N3: Ninety-Nine Nights* para Windows. Parte de [N3 Recompiled](https://github.com/WK2D/N3-Ninety-Nine-Nights-Recomp) de WK2D y añade un **launcher propio**, un **menú dentro del juego en español**, la **selección real del idioma de los textos**, las **voces japonesas** sobre la edición PAL y herramientas para **medir el rendimiento**.
 
-Extract the whole ZIP and run **n3.exe**. Select an ISO made from your own
-disc, or `default.xex` in your own extracted game folder with `data/` beside it.
-Setup checks the executable's SHA-256 and remembers the local folder. Importing
-an ISO needs about 5.8 GB of free space; the original image stays unchanged.
+### Qué cambia respecto a la versión original
+| Antes | Ahora |
+|---|---|
+| El idioma de los textos quedaba fijo en inglés y los acentos salían como una «X roja» | Eliges español, inglés, francés, alemán o italiano (`n3_text_language`), con los acentos correctos y sin tocar ningún archivo del juego |
+| Solo voces en inglés en la edición PAL | Voces japonesas originales desde tu ISO japonesa o el UNDUB, sin copiar 5,8 GB (enlaces duros) y con comprobación de compatibilidad |
+| Ajustes gráficos solo desde un menú del propio juego o editando `n3.toml` | Launcher con importación de ISO, ajustes reales y copia de seguridad, y un **menú en el juego (F5)** que los aplica al momento |
+| Sin forma de saber por qué algo va lento | Registro de FPS con media, P95, P99 y tirones (`frame_pacing_trace`) y una sonda que mide el limitador sin abrir el juego |
+| Ventana con título y barra genéricos | Título, icono y colores propios; modo sin borde opcional |
 
-The supported USA/Europe executable is version **0.0.0.3**. Other revisions are
-rejected. Windows 10/11 x64, Direct3D 12, and an Xbox-compatible controller are
-the current target. No Node.js, Python, or build tools are needed to play.
+### Cómo jugar
+1. Descarga el **ZIP portátil** de la [última release](https://github.com/donelysentretenimiento/Donelys-N3recomp/releases/latest) y descomprímelo entero en una carpeta.
+2. Abre `Iniciar DONELYS N3.cmd`.
+3. La primera vez, el launcher te pide tu ISO PAL o la carpeta ya extraída. Comprueba la versión por la huella SHA-256 de su ejecutable y configura las rutas solo.
+4. Elige idioma, voces y gráficos en *Ajustes* y pulsa **JUGAR**. En el juego, **F5** abre el menú DONELYS y **F4** el panel técnico del SDK.
 
-The app defaults to a **1280 x 720 window**. Saves, settings, imported data,
-caches, and logs default to `%LOCALAPPDATA%\N3Recompiled`. Keep this profile
-folder when updating; replace the application folder with the new release.
-An existing extracted game folder is linked in place. The package contains
-no game assets or original executable. See the [release guide](docs/RELEASE-README.txt).
+No necesitas Visual Studio, CMake ni herramientas de desarrollo. Requisitos: Windows 10/11 de 64 bits y una GPU compatible con Direct3D 12.
 
-[Release notes, checksums, and optional developer sources](https://github.com/WK2D/N3-Ninety-Nine-Nights-Recomp/releases/tag/v0.1.0-alpha.12)
-are available separately. Only the Windows ZIP is needed to play.
+### Estado
+Es una **vista previa**. Probado en Ryzen 7 9800X3D · RTX 5090 · 64 GB · Windows 11; otros equipos no están validados.
 
-Alpha 12 converts fourteen related state-query entries, bringing development to
-60 native C++ entry points. Eleven share a kind-bit lookup; the others preserve
-identity/category gates and byte-valued overrides. Explicit flags and identities
-can be inspected and edited in native code while unused memory reads stay skipped.
-All 58 memory-backed typed entries have mapped-address checks and high-address
-fixtures; two use only scalar registers. Full game-code conversion remains in progress.
-Filtering uses numeric 1x/2x/4x/8x/16x choices. Windows still uses
-Direct3D 12. This engine work does not claim a speedup or fix higher-FPS animation timing.
+| Comprobado | Sin comprobar o con límites |
+|---|---|
+| Menú F5, idioma (se aplica, se guarda y persiste tras reiniciar), Esc | Pantalla completa desde el menú F5 y mando |
+| Primer arranque desde una carpeta limpia con el ZIP portátil | Con el menú abierto, el teclado también llega al juego (límite del SDK) |
+| Una misión real: 187 de 199 ventanas de 2 s a 58–60 FPS | Voces japonesas audibles en todas las misiones |
+| 51 pruebas nativas y 8 del launcher | Texto japonés sobre la PAL y UNDUB como edición propia: no viables |
 
-The emerald N3 icon is embedded in `n3.exe` and appears on the application window
-and Windows shortcuts made from it. To add a desktop shortcut, right-click
-`n3.exe`, choose **Show more options** on Windows 11, then **Send to → Desktop
-(create shortcut)**. Keep the extracted application folder in its chosen location.
+### Documentación
+[Menú, perfiles y diagnóstico](DONELYS-INGAME.md) · [Instalación](launcher/docs/es/instalacion.md) · [Compatibilidad](launcher/docs/es/compatibilidad.md) · [Cómo funciona](launcher/docs/es/como-funciona.md) · [Gráficos y F4](launcher/docs/es/graficos-y-f4.md) · [Limitaciones](launcher/docs/es/limitaciones.md) · [Compilar desde el código](launcher/docs/es/compilar.md)
 
-## Run a development build
+### Compilar desde el código
+El juego se compila con `tools/bootstrap.ps1` y `tools/build.ps1` y necesita tu propia copia del juego. La guía de desarrollo heredada del proyecto base se conserva en [README.upstream.md](README.upstream.md); las particularidades de esta edición están en [DONELYS-INGAME.md](DONELYS-INGAME.md).
 
-Double-click **N3 Recompiled** on the desktop, or run:
+### Licencia, créditos y marcas
+**El repositorio no es GPL en su conjunto.** Lo son los módulos propios de Donelys Entretenimiento (launcher, menú, idioma integrado, diagnóstico, pruebas y documentación), © 2026, GPL-3.0-or-later; el texto está en [`LICENSES/GPL-3.0-DONELYS.txt`](LICENSES/GPL-3.0-DONELYS.txt) y en [`launcher/LICENSE`](launcher/LICENSE). El resto conserva su licencia, detallada en [THIRD_PARTY-NOTICES.md](THIRD_PARTY-NOTICES.md):
 
-```powershell
-pwsh -NoProfile -File tools/launch.ps1
-```
+- **N3 Recompiled** — WK2D. Su repositorio **no declara licencia**: se mantiene su autoría y esta edición se publica bajo responsabilidad de Donelys Entretenimiento; se retirará si su autor lo solicita.
+- **ReXGlue SDK** — Tom Clay y colaboradores (BSD 3-Clause), derivado en parte de **Xenia**. También Dear ImGui y toml++ (MIT), Electron/Chromium, y las tipografías Cinzel y Cormorant Garamond (SIL OFL 1.1).
+- ***N3: Ninety-Nine Nights*** pertenece a sus titulares; este proyecto no está afiliado a ellos. Véase [`launcher/TRADEMARKS.md`](launcher/TRADEMARKS.md).
+- La portada, el fondo y el icono son arte de Donelys Entretenimiento, todos los derechos reservados.
 
-The launcher defaults to a **1280 x 720 window**, keeps fullscreen off, and stores saves,
-profile data, and caches under `private/`. Runtime logs go under `logs/`.
-The shortcut follows the stable launcher and build path, so rebuilding updates
-what it launches. Refresh the shortcut after moving the project folder:
+---
 
-```powershell
-pwsh -NoProfile -File tools/install-shortcut.ps1
-```
+## English
 
-## Graphics
+### What it is
+DONELYS · N3 is an independent Windows edition of the native recompilation of *N3: Ninety-Nine Nights*. It starts from WK2D's [N3 Recompiled](https://github.com/WK2D/N3-Ninety-Nine-Nights-Recomp) and adds **its own launcher**, an **in-game menu**, **real text-language selection**, **Japanese voices** on top of the PAL edition and tools to **measure performance**.
 
-Select **Graphics** below **Tutorial** on the main menu. This opens a separate
-page using the game's Options layout, fonts, arrows, and controller navigation.
-Use up/down to select a row and left/right to change its value. **B** returns.
-Changes apply immediately and are saved to the local profile.
+### What changes compared with the original
+| Before | Now |
+|---|---|
+| The text language was stuck on English and accented letters showed as a "red X" | Pick Spanish, English, French, German or Italian (`n3_text_language`), with correct accents and without touching any game file |
+| English voices only on the PAL edition | Original Japanese voices from your Japanese ISO or the UNDUB, without copying 5.8 GB (hard links) and with a compatibility check |
+| Graphics settings only from the game's own menu or by editing `n3.toml` | A launcher with ISO import, real settings and backups, plus an **in-game menu (F5)** that applies them instantly |
+| No way to tell why something runs slowly | FPS logging with mean, P95, P99 and hitches (`frame_pacing_trace`) and a probe that measures the limiter without starting the game |
+| Generic window title and caption | Own title, icon and colours; optional borderless mode |
 
-- **Frame rate:** 30, 40, or 60 FPS; 30 is the default.
-- **Anisotropic filtering:** 1x, 2x, 4x, 8x, or 16x.
-- **Display resolution:** 720p, 1080p, 1440p, or 4K window/output size.
-- **Render resolution:** 720p (1x), 1440p (2x), or 4K (3x) internal rendering.
-- **VSync:** On or Off, applied live to Windows presentation.
-  On synchronizes presentation without blocking menu input; Off allows tearing
-  when supported. This is separate from the game's vblank clock.
+### How to play
+1. Download the **portable ZIP** from the [latest release](https://github.com/donelysentretenimiento/Donelys-N3recomp/releases/latest) and extract it entirely into a folder.
+2. Open `Iniciar DONELYS N3.cmd`.
+3. On first start the launcher asks for your PAL ISO or the already extracted folder. It checks the version by the SHA-256 of its executable and sets the paths up by itself.
+4. Pick language, voices and graphics under *Ajustes* (Settings) and press **JUGAR** (Play). In game, **F5** opens the DONELYS menu and **F4** the SDK's technical panel.
 
-Filtering overrides apply to eligible mipmapped textures. The renderer retains
-the game's filtering for textures outside that policy. The original Options
-page continues to provide the existing audio, camera, vibration, and contrast
-settings. No restart is needed for the Graphics controls. Render changes rebuild
-the scale-dependent GPU caches at a completed frame boundary; a brief pause while
-resources and shaders are prepared is possible. Unsupported changes retain the
-previous render scale. A short confirmation reports when settings are saved.
+You do not need Visual Studio, CMake or any development tool. Requirements: 64-bit Windows 10/11 and a Direct3D 12 capable GPU.
 
-Display size and internal rendering are independent. The app restores
-maximized/fullscreen windows when a display preset is selected and apply exact
-physical client dimensions. A large window can extend beyond the desktop when
-its client size plus borders will not fit. The renderer supports
-integer scales, so 1080p is available as a display size, with 720p/1440p/4K render
-choices. Saved display settings apply on the next launch; explicit launcher
-`-Width`/`-Height` arguments override them for that launch.
+### Status
+This is a **preview**. Tested on Ryzen 7 9800X3D · RTX 5090 · 64 GB · Windows 11; other systems are not validated.
 
-The new menu is derived locally from the player's own data into the profile's
-`ui/` cache. Original game files are read only; no menu assets are bundled.
+| Checked | Unchecked or limited |
+|---|---|
+| F5 menu, language (applies, saves and persists after a restart), Esc | Fullscreen from the F5 menu and gamepad |
+| First start from a clean folder with the portable ZIP | With the menu open, the keyboard also reaches the game (SDK limit) |
+| One real mission: 187 of 199 two-second windows at 58–60 FPS | Audible Japanese voices in every mission |
+| 51 native tests and 8 launcher tests | Japanese text on the PAL and the UNDUB as its own edition: not feasible |
 
-For a single launch, development overrides remain available:
+### Documentation
+[Menu, presets and diagnostics](DONELYS-INGAME.md) · [Installation](launcher/docs/en/installation.md) · [Compatibility](launcher/docs/en/compatibility.md) · [How it works](launcher/docs/en/how-it-works.md) · [Graphics and F4](launcher/docs/en/graphics-and-f4.md) · [Limitations](launcher/docs/en/limitations.md) · [Building from source](launcher/docs/en/building.md)
 
-```powershell
-pwsh -NoProfile -File tools/launch.ps1 -FrameRate 30
-pwsh -NoProfile -File tools/launch.ps1 -FrameRate 40
-pwsh -NoProfile -File tools/launch.ps1 -FrameRate 60
-pwsh -NoProfile -File tools/launch.ps1 -FrameRate Original
-```
+### Building from source
+The game is built with `tools/bootstrap.ps1` and `tools/build.ps1` and needs your own copy of the game. The development guide inherited from the base project is kept in [README.upstream.md](README.upstream.md); this edition's specifics are in [DONELYS-INGAME.md](DONELYS-INGAME.md).
 
-**Development caveat:** higher frame-rate modes remain experimental. Initial
-60 FPS testing is smooth, but animations appear accelerated. Animation/combat
-timing is still under investigation; a requested limit does not guarantee that
-all scenes achieve it. Movie/audio clocks remain unchanged and prerecorded
-videos can retain their original rate. Use the Original override for timing
-comparisons against unmodified game pacing. The Graphics menu was introduced in alpha 2; VSync and the audit corrections are included from alpha 3.
+### License, credits and trademarks
+**The repository is not GPL as a whole.** Donelys Entretenimiento's own modules (launcher, menu, built-in language, diagnostics, tests and documentation) are © 2026, GPL-3.0-or-later; the text is in [`LICENSES/GPL-3.0-DONELYS.txt`](LICENSES/GPL-3.0-DONELYS.txt) and [`launcher/LICENSE`](launcher/LICENSE). Everything else keeps its own license, detailed in [THIRD_PARTY-NOTICES.md](THIRD_PARTY-NOTICES.md):
 
-## Build from a fresh checkout
-
-Windows x64 is the platform tested so far. Setup needs PowerShell 7, Node.js 18+
-for disc extraction, Python 3.10+ for portable Microsoft tools, and 7-Zip for
-unpacking the LLVM installer. Setup extracts tools locally; it does not install
-Visual Studio globally. Download sizes total roughly 1 GB, plus extracted tools
-and approximately 5.8 GB of game files.
-
-```powershell
-# AcceptVisualStudioLicense accepts Microsoft's development-tool licence.
-pwsh -NoProfile -File tools/bootstrap.ps1 -AcceptVisualStudioLicense -Python python
-
-node tools/disc.mjs extract "path/to/your-disc.iso" private/game private/disc-manifest.json
-pwsh -NoProfile -File tools/build.ps1
-pwsh -NoProfile -File tools/launch.ps1
-```
-
-Alternatively, supply an existing VS 2022 x64 development environment and use
-`bootstrap.ps1 -ToolsOnly`. Tool versions, download URLs, and archive checksums
-are in [toolchain.lock.json](tools/toolchain.lock.json). The Microsoft downloader
-pins VS 2022 / MSVC 14.44 / Windows SDK 26100; Microsoft's servicing manifests can
-update the patch versions within those selections.
-
-Extraction refuses an existing output directory. Each extracted file receives
-a SHA-256 hash in the local disc manifest. Build/codegen verifies the expected
-`default.xex` hash before using the build-specific function hints.
-
-## Development commands
-
-```powershell
-node --test tools/disc.test.mjs
-pwsh -NoProfile -File tools/codegen.ps1 -Regenerate
-pwsh -NoProfile -File tools/build.ps1 -Configuration RelWithDebInfo -Jobs 4
-pwsh -NoProfile -File tools/smoke.ps1 -Seconds 30
-pwsh -NoProfile -File tools/symbolize-fault.ps1
-```
-
-The build runs native clock, geometry, vector, delay/mixing/feedback,
-table-derived value, percentage/modifier, capped accumulation, handle lookup,
-payload transfer/installation, direction normalization/accumulation/basis and
-countdown/scalar/bit tests, plus callback floating-point, disc importer, game-path,
-crash-report, frame-rate, menu-layout, profile persistence, and host presentation
-regression tests. The Xenos GPU
-plugin is rebuilt from the pinned SDK source with the local live-resolution
-extension in `tools/gpu/`. The first build downloads the corresponding SDK sources
-when necessary; `-Python` selects the Python executable for preparation.
-For an isolated developer profile, `--graphics_audit --graphics_trace
---frame_pacing_trace` cycles controls without saving. After at least 50 seconds,
-`python tools/verify-graphics-audit.py path/to/the-log` checks actual window,
-render-source, sampler, and presentation evidence. Use a separate test profile;
-the probe deliberately changes live settings. Prerecorded videos retain their
-own frame rate, so gameplay pacing needs a separate check.
-Smoke tests stop
-their own child process at the deadline and record the result under `logs/`;
-survival alone does not establish correct rendering or gameplay. Smoke runs use
-the same local profile as the launcher, so use separate profile copies for future
-save regression testing.
-
-FP fault reports live in the active profile's `logs/` folder and contain module
-basenames and offsets. The symbolizer defaults to the local RelWithDebInfo build;
-pass `-Executable` when resolving a report against a different binary/PDB.
-
-Analysis hints belong in `n3_manifest.toml`, and runtime fixes belong in `src/`.
-Do not hand-edit generated translations. `generated/rexglue.cmake` is SDK build
-integration boilerplate and is the only tracked file in `generated/`.
-
-For a Windows release, build the `Release` configuration, run
-`python tools/bundle-sdk-source.py`, then `python tools/package-release.py`.
-The packaging tool admits an explicit set of runtime files, carries third-party
-notices, scans binaries for local identifiers, and writes ZIP checksums under
-`out/release/`. Inspect and test that package before publishing.
-
-## References
-
-The [native engine module notes](docs/NATIVE-CODE.md) describe the typed frame
-clock, geometry, vector, delay/mixing/feedback, table-value, handle, payload,
-direction normalization/accumulation/basis, countdown, scalar and bit-field routines,
-guest-memory boundaries, and comparisons against the translated game code.
-
-The [game-code conversion plan](docs/CONVERSION-PLAN.md) tracks the typed
-interfaces and remaining subsystem work separately from generated translations
-and development tooling. Development includes 60 typed native entry points,
-checked against the retained translations and included in Alpha 12.
-See [status](docs/STATUS.md) for the checks and their limits.
-
-The next platform work targets Vulkan and Apple Silicon. Portable native
-components can already build without game data or the Xbox runtime; the full
-game remains Windows-only. See the [native code and porting roadmap](docs/PORTING.md).
-
-[LostOdysseyRecomp](https://github.com/freefrank/LostOdysseyRecomp) and
-[UnleashedRecomp](https://github.com/hedge-dev/UnleashedRecomp) are the reference
-projects for development practices and the longer-term port experience.
-See [reference notes](docs/REFERENCES.md) and [third-party notices](THIRD_PARTY.md).
+- **N3 Recompiled** — WK2D. Its repository **declares no license**: its authorship is kept and this edition is published on Donelys Entretenimiento's responsibility; it will be withdrawn if its author asks.
+- **ReXGlue SDK** — Tom Clay and contributors (BSD 3-Clause), partly derived from **Xenia**. Also Dear ImGui and toml++ (MIT), Electron/Chromium, and the Cinzel and Cormorant Garamond typefaces (SIL OFL 1.1).
+- ***N3: Ninety-Nine Nights*** belongs to its rights holders; this project is not affiliated with them. See [`launcher/TRADEMARKS.md`](launcher/TRADEMARKS.md).
+- The cover, background and icon are Donelys Entretenimiento artwork, all rights reserved.
