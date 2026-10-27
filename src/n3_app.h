@@ -15,6 +15,9 @@
 #include "profile_config.h"
 #include "graphics_notification.h"
 #include "graphics_audit.h"
+#include "donelys_defaults.h"
+#include "donelys_theme.h"
+#include "donelys_window.h"
 #include <rex/ui/flags.h>
 class N3App : public rex::ReXApp {
  public:
@@ -34,14 +37,25 @@ class N3App : public rex::ReXApp {
       REXCVAR_SET(window_width, 1280);
     if (rex::cvar::GetFlagSource("window_height") == rex::cvar::Source::kDefault)
       REXCVAR_SET(window_height, 720);
+    // After the defaults above, so the Donelys profile wins over them but never over the user's own values.
+    n3::donelys::ApplyDonelysDefaults();
+  }
+
+  void OnConfigureStyle(ImGuiStyle& imgui_style, rex::ui::Style& ui_style) override {
+    ApplyDonelysTheme(imgui_style, ui_style);
   }
 
   void OnPostSetup() override {
     ApplyAppIcon(*window());
+    // The GPU cvars (render scale, anisotropy) only exist now; values already written are skipped.
+    n3::donelys::ApplyDonelysDefaults();
+    // Before the display size is applied so the client area is computed for the final window style.
+    n3::donelys::ApplyDonelysWindow(*window());
     InstallDisplaySettings(app_context(), *window());
     InstallGraphicsAudit(app_context());
   }
   void OnCreateDialogs(rex::ui::ImGuiDrawer* drawer) override {
+    n3::donelys::ApplyDonelysKeybind();
     graphics_notification_ = CreateGraphicsNotification(drawer);
   }
   void OnShutdown() override { ShutdownGraphicsAudit(); graphics_notification_.reset(); ShutdownDisplaySettings(); }

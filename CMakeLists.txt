@@ -149,6 +149,9 @@ set(N3_SOURCES
     src/graphics_notification.cpp
     src/graphics_settings.cpp
     src/graphics_audit.cpp
+    src/donelys_theme.cpp
+    src/donelys_window.cpp
+    src/donelys_defaults.cpp
 )
 
 if(WIN32)
@@ -163,7 +166,7 @@ endif()
 add_subdirectory(tools/gpu)
 rexglue_setup_target(n3 GPU_PLUGINS xenos)
 
-target_link_libraries(n3 PRIVATE n3_native n3_game_data n3_menu_assets comdlg32 ole32 uuid shell32)
+target_link_libraries(n3 PRIVATE n3_native n3_game_data n3_menu_assets comdlg32 ole32 uuid shell32 dwmapi)
 if(BUILD_TESTING)
     add_executable(n3_fp_policy_test tests/fp_policy_test.cpp)
     target_include_directories(n3_fp_policy_test PRIVATE src)
@@ -298,4 +301,9 @@ if(BUILD_TESTING)
     add_executable(n3_graphics_policy_test tests/graphics_policy_test.cpp)
     target_include_directories(n3_graphics_policy_test PRIVATE src)
     add_test(NAME graphics_policy COMMAND n3_graphics_policy_test)
+    foreach(name IN ITEMS palette window defaults)
+        add_executable(n3_donelys_${name}_test tests/donelys_${name}_test.cpp)
+        target_include_directories(n3_donelys_${name}_test PRIVATE src)
+        add_test(NAME donelys_${name} COMMAND n3_donelys_${name}_test)
+    endforeach()
 endif()
