@@ -1,7 +1,7 @@
 {
   "name": "donelys-n3-launcher",
   "productName": "DONELYS N3",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DONELYS ENTRETENIMIENTO PRESENTA · N3: Ninety-Nine Nights — lanzador para N3 Recompiled",
   "type": "module",
   "main": "main.mjs",

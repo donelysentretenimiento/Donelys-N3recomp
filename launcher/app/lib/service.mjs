@@ -25,9 +25,10 @@ export function createService({ releaseDir, emit }) {
   const coversDir = path.join(dataDir, 'caratulas');
   const COVER_EXT = ['jpg', 'jpeg', 'png', 'webp'];
   const coverCache = new Map(); // clave -> { stamp, url }
+  const bundledDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'ui', 'art'); // imagen incrustada por defecto
   const readCover = (key) => {
-    for (const ext of COVER_EXT) {
-      const f = path.join(coversDir, `${key}.${ext}`);
+    for (const dir of [coversDir, bundledDir]) for (const ext of COVER_EXT) {
+      const f = path.join(dir, `${key}.${ext}`);
       if (!fs.existsSync(f)) continue;
       const st = fs.statSync(f), stamp = `${st.size}:${st.mtimeMs}`;
       if (coverCache.get(key)?.stamp !== stamp) coverCache.set(key, { stamp, url: `data:image/${ext === 'jpg' ? 'jpeg' : ext};base64,` + fs.readFileSync(f).toString('base64') });

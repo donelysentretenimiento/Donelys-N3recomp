@@ -39,6 +39,9 @@ affecting the game, your saves or your configuration.
 
 ## Your own artwork
 
+The application ships a default cover and background. If you want different ones:
+
+
 *Ajustes → Apariencia* (Appearance) lets you pick the cover and background (you can also drag an image onto the cover, or paste it with Ctrl+V). Recommended
 background: 2560×1440 px (16:9), JPG/PNG/WebP up to 12 MB, no text, dark and uncluttered centre. Cover: square, at least 1200×1200 px. Images are downscaled and
 stored locally; they are never published.

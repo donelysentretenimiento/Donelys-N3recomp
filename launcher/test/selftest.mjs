@@ -22,6 +22,7 @@ const { ensureRuntime, runtimeStatus, LANG_CODES } = await import(lib('runtime.m
 const { parseXwb, parsePak } = await import(lib('voices.mjs'));
 const { parseXex } = await import(lib('xex.mjs'));
 const { Disc } = await import(lib('disc.mjs'));
+const { createService } = await import(lib('service.mjs'));
 
 // Imagen XDVDFS sintética: sector 32 = volumen, 33 = raíz, 34 = default.xex, 35 = carpeta «data», 36 = data/b.bin
 function buildImage(rootName = 'default.xex') {
@@ -108,6 +109,17 @@ if (fs.existsSync(rtDll)) {
     assert.throws(() => ensureRuntime({ releaseDir: release, dataDir: path.join(tmp, 'datos'), lang: 'KLI' }));
   });
 }
+
+await test('portada y fondo incrustados por defecto; la imagen del usuario manda y se puede quitar', () => {
+  const rel = path.join(tmp, 'rel'); fs.mkdirSync(rel); fs.writeFileSync(path.join(rel, 'n3.exe'), 'MZ');
+  const svc = createService({ releaseDir: rel, emit: () => {} });
+  const c = svc.snapshot().covers;
+  assert.match(c.portada, /^data:image\/jpeg;base64,/); assert.match(c.fondo, /^data:image\/jpeg;base64,/);
+  svc.setCoverData('portada', 'image/png', Buffer.from('x').toString('base64'));
+  assert.match(svc.snapshot().covers.portada, /^data:image\/png/);
+  svc.removeCover('portada');
+  assert.match(svc.snapshot().covers.portada, /^data:image\/jpeg/);
+});
 
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log(`\n${ok} pruebas correctas`);

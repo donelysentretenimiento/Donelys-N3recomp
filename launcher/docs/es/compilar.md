@@ -29,5 +29,4 @@ Si ya tienes un `electron\dist` local: `-ElectronDist <ruta>`. El script no modi
 
 - El `.exe` es el de Electron renombrado; el icono y el título de la ventana propios los aplica la propia aplicación. Cambiar los metadatos del
   ejecutable requiere una herramienta de edición de recursos que este repositorio no incluye.
-- No se distribuye portada ni fondo: cada usuario los elige. Para tu propia build puedes colocar `portada.jpg` y `fondo.jpg` en
-  `DonelysN3-datos\caratulas\`.
+- La portada y el fondo por defecto están en `app/ui/art/`. La imagen que elija el usuario (en `DonelysN3-datos\caratulas\`) tiene prioridad, y *Quitar fondo* vuelve a la incluida.

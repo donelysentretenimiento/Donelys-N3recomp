@@ -3,6 +3,12 @@
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versionado: `MAJOR.MINOR.PATCH` con sufijo de canal.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: `MAJOR.MINOR.PATCH` with a channel suffix.
 
+## [0.1.1] — preview 1
+
+### Añadido · Added
+- Portada, fondo e icono de DONELYS ENTRETENIMIENTO incluidos por defecto en la aplicación; la imagen del usuario sigue teniendo prioridad. · Default cover, background and icon bundled; the user's image still takes priority.
+- Prueba automática de ese comportamiento. · Automated test for that behaviour.
+
 ## [0.1.0] — preview 1
 
 ### Añadido · Added

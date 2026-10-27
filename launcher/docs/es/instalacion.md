@@ -40,6 +40,9 @@ afectar al juego, a tus partidas ni a tu configuración.
 
 ## Imagen propia
 
+La aplicación incluye una portada y un fondo por defecto. Si quieres otros:
+
+
 *Ajustes → Apariencia* permite elegir la portada y el fondo (también arrastrando una imagen sobre la portada, o pegándola con Ctrl+V). Fondo
 recomendado: 2560×1440 px (16:9), JPG/PNG/WebP de hasta 12 MB, sin texto, con el centro oscuro y poco detallado. Portada cuadrada de al menos
 1200×1200 px. Las imágenes se reducen y se guardan localmente; no se publican.

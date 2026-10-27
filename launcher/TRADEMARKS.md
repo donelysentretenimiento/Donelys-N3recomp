@@ -11,5 +11,12 @@ con los titulares del juego.
 game files** — no executables, data, disc images or save games. You need your own legitimate copy of the disc. "Xbox" and "Xbox 360" are
 trademarks of Microsoft. "DONELYS" and "DONELYS ENTRETENIMIENTO" identify this work and imply no relationship with the game's rights holders.
 
-La portada y el fondo de la interfaz **no se distribuyen**: cada usuario aporta los suyos desde *Ajustes → Apariencia*.
-The cover and background of the interface are **not distributed**: each user supplies their own from *Settings → Appearance* (Ajustes → Apariencia).
+## Imágenes incluidas · Bundled artwork
+
+**Español.** La portada y el fondo por defecto (`app/ui/art/`) y el icono son obra de Donelys Entretenimiento: **© 2026 Donelys Entretenimiento, todos los
+derechos reservados; no están cubiertos por la GPL del código**. Son arte de aficionado, sin ánimo de lucro, inspirado en personajes cuyos derechos pertenecen
+a sus titulares; si un titular lo solicita, se retirarán. Cada usuario puede sustituirlas desde *Ajustes → Apariencia* sin tocar el paquete.
+
+**English.** The default cover and background (`app/ui/art/`) and the icon are the work of Donelys Entretenimiento: **© 2026 Donelys Entretenimiento, all rights
+reserved; they are not covered by the GPL that applies to the code**. They are non-commercial fan art inspired by characters whose rights belong to their owners; they
+will be removed on a rights holder's request. Users can replace them from *Settings → Appearance* without touching the package.

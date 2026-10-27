@@ -28,4 +28,4 @@ If you already have a local `electron\dist`: `-ElectronDist <path>`. The script 
 ## Notes
 
 - The `.exe` is Electron's renamed; the own icon and window title are applied by the application itself. Changing the executable's metadata needs a resource editor that this repository does not include.
-- No cover or background is distributed: each user picks theirs. For your own build you can place `portada.jpg` and `fondo.jpg` in `DonelysN3-datos\caratulas\`.
+- The default cover and background live in `app/ui/art/`. An image picked by the user (in `DonelysN3-datos\caratulas\`) takes priority, and *Quitar fondo* (remove background) goes back to the bundled one.

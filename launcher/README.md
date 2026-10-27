@@ -27,7 +27,7 @@ Un launcher de escritorio para **N3 Recompiled** que se encarga de lo que el rec
   mismo `n3.toml` que usa el juego, con copia de seguridad.
 - **Gestión de fuentes**: reconoce por firma ISO y carpetas de las ediciones PAL, japonesa y UNDUB; importa la ISO PAL; exporta las voces.
 - **Ventana del juego con la imagen del launcher**: título, icono y colores de la barra (o sin barra).
-- Interfaz en español de España con diseño propio de «cristal líquido».
+- Interfaz en español de España con diseño propio de «cristal líquido», con portada y fondo de DONELYS ENTRETENIMIENTO incluidos (sustituibles).
 
 ### Requisitos
 
@@ -72,7 +72,7 @@ A desktop launcher for **N3 Recompiled** that handles what the recompilation doe
   `n3.toml` the game reads, with a backup.
 - **Source management**: identifies the PAL, Japanese and UNDUB editions by signature (ISO or folder); imports the PAL ISO; exports the voices.
 - **Game window branding**: title, icon and caption colours (or no caption).
-- A Spanish (Spain) interface with a custom "liquid glass" design.
+- A Spanish (Spain) interface with a custom "liquid glass" design, shipping DONELYS ENTRETENIMIENTO's cover and background (replaceable).
 
 ### Requirements
 

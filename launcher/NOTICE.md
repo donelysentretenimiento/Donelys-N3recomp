@@ -13,6 +13,11 @@ The original code in this directory (`launcher/`) is distributed under **GPL-3.0
 | [Cinzel](https://github.com/NDISCOVER/Cinzel) | Tipografía de títulos · display typeface | SIL OFL 1.1 — [`app/ui/fonts/OFL-Cinzel.txt`](app/ui/fonts/OFL-Cinzel.txt) |
 | [Cormorant Garamond](https://github.com/CatharsisFonts/Cormorant) | Tipografía de texto · text typeface | SIL OFL 1.1 — [`app/ui/fonts/OFL-CormorantGaramond.txt`](app/ui/fonts/OFL-CormorantGaramond.txt) |
 
+## Imágenes · Artwork
+
+`app/ui/art/*` e `icon.*`: © 2026 Donelys Entretenimiento, todos los derechos reservados (no GPL). Véase [TRADEMARKS.md](TRADEMARKS.md). ·
+`app/ui/art/*` and `icon.*`: © 2026 Donelys Entretenimiento, all rights reserved (not GPL). See [TRADEMARKS.md](TRADEMARKS.md).
+
 ## Proyectos con los que interactúa (no incluidos) · Projects it interacts with (not included)
 
 El launcher **no contiene ni redistribuye** código ni binarios de estos proyectos; los usa tal como los instala el usuario.
