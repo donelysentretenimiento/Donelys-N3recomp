@@ -15,11 +15,12 @@ export const SCHEMA = {
   resolution_scale: { type: 'int', allowed: [1, 2, 3], default: 1 },
   n3_vsync: { type: 'bool', default: true },
   fullscreen: { type: 'bool', default: false },
+  n3_text_language: { type: 'str', allowed: ['english', 'french', 'german', 'italian', 'spanish'], default: 'english' }, // solo en la compilación DONELYS
 };
 const SCALE_KEYS = ['draw_resolution_scale_x', 'draw_resolution_scale_y']; // el runtime los mantiene iguales a resolution_scale
 
-const fmt = (v) => (typeof v === 'boolean' ? String(v) : String(v));
-const parseVal = (s) => (s === 'true' ? true : s === 'false' ? false : /^-?\d+$/.test(s) ? Number(s) : s.replace(/^"|"$/g, ''));
+const fmt = (v) => (typeof v === 'string' ? `'${v}'` : String(v));
+const parseVal = (s) => (s === 'true' ? true : s === 'false' ? false : /^-?\d+$/.test(s) ? Number(s) : s.replace(/^["']|["']$/g, ''));
 
 export function readRaw() {
   try { return fs.readFileSync(TOML_PATH, 'utf8'); } catch { return ''; }

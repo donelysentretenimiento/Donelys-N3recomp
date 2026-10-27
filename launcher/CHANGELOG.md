@@ -3,6 +3,12 @@
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versionado: `MAJOR.MINOR.PATCH` con sufijo de canal.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: `MAJOR.MINOR.PATCH` with a channel suffix.
 
+## [0.2.0] — preview 1
+
+### Añadido · Added
+- Reconoce la compilación DONELYS del juego (`DONELYS-BUILD.json` junto a `n3.exe`): el idioma de los textos se escribe en `n3.toml` (`n3_text_language`) y no se parchea ninguna DLL. · Recognises the DONELYS game build: the text language is written to `n3.toml` and no DLL is patched.
+- Prueba automática de ese modo. · Automated test for that mode.
+
 ## [0.1.1] — preview 1
 
 ### Añadido · Added

@@ -8,7 +8,7 @@ import { Worker } from 'node:worker_threads';
 import { inspectSource, idFor } from './sources.mjs';
 import { ensureVoicePack, validatePack } from './voices.mjs';
 import { composeProfile, listProfiles, removeProfile } from './compose.mjs';
-import { ensureRuntime, runtimeStatus, TEXT_LANGS } from './runtime.mjs';
+import { ensureRuntime, runtimeStatus, TEXT_LANGS, NATIVE_LANG } from './runtime.mjs';
 import { extractFiltered } from './extract.mjs';
 import * as settings from './settings.mjs';
 import * as game from './game.mjs';
@@ -213,6 +213,7 @@ export function createService({ releaseDir, emit }) {
         gameDir = c.dir; desc = `perfil de voces ${c.id} (${c.reused ? 'reutilizado' : 'creado'})`;
       }
       const rt = ensureRuntime({ releaseDir, dataDir, lang: sel.text });
+      if (rt.native) settings.writeSettings({ n3_text_language: NATIVE_LANG[sel.text] ?? 'english' }); // la compilación DONELYS lee el idioma de n3.toml
       desc += sel.text === 'ENG' ? ' · runtime original' : ` · runtime con idioma ${sel.text} (${rt.reused ? 'reutilizado' : 'creado'})`;
       note('info', `Lanzando con ${desc}`);
       const r = game.launch({ releaseDir, exeDir: rt.dir, gameDir, borderless: lib.selection.borderless === true, iconPath: path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'ui', 'icon.ico'), onExit: (x) => emit('game-exit', { ...x, relevant: game.relevantLines(x.log.lines) }) });

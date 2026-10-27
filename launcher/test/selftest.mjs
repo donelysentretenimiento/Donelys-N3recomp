@@ -18,7 +18,7 @@ const test = async (name, fn) => { await fn(); ok++; console.log('  ok  ' + name
 
 const settings = await import(lib('settings.mjs'));
 const { composeProfile } = await import(lib('compose.mjs'));
-const { ensureRuntime, runtimeStatus, LANG_CODES } = await import(lib('runtime.mjs'));
+const { ensureRuntime, runtimeStatus, LANG_CODES, NATIVE_LANG, isNativeBuild } = await import(lib('runtime.mjs'));
 const { parseXwb, parsePak } = await import(lib('voices.mjs'));
 const { parseXex } = await import(lib('xex.mjs'));
 const { Disc } = await import(lib('disc.mjs'));
@@ -119,6 +119,25 @@ await test('portada y fondo incrustados por defecto; la imagen del usuario manda
   assert.match(svc.snapshot().covers.portada, /^data:image\/png/);
   svc.removeCover('portada');
   assert.match(svc.snapshot().covers.portada, /^data:image\/jpeg/);
+});
+
+await test('compilación DONELYS: el idioma va por n3_text_language, sin parchear ninguna DLL', () => {
+  const dir = path.join(tmp, 'build-donelys'); fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'n3.exe'), 'x'); fs.writeFileSync(path.join(dir, 'rexruntimerd.dll'), 'y');
+  assert.equal(isNativeBuild(dir), false);
+  assert.equal(runtimeStatus(dir).patchable, false); // sin marcador, una compilación desconocida se rechaza
+  fs.writeFileSync(path.join(dir, 'DONELYS-BUILD.json'), '{}');
+  assert.equal(isNativeBuild(dir), true);
+  assert.deepEqual(runtimeStatus(dir), { patchable: true, native: true });
+  for (const lang of Object.keys(NATIVE_LANG)) {
+    const r = ensureRuntime({ releaseDir: dir, dataDir: path.join(tmp, 'datos2'), lang });
+    assert.equal(r.dir, dir); assert.equal(r.patched, false); assert.equal(r.native, true);
+  }
+  assert.equal(fs.existsSync(path.join(tmp, 'datos2', 'runtime')), false); // no se crea ninguna copia parcheada
+  settings.writeSettings({ n3_text_language: NATIVE_LANG.SPA });
+  assert.match(fs.readFileSync(settings.TOML_PATH, 'utf8'), /^n3_text_language = 'spanish'$/m);
+  assert.equal(settings.readSettings().values.n3_text_language, 'spanish');
+  assert.throws(() => settings.writeSettings({ n3_text_language: 'klingon' }));
 });
 
 fs.rmSync(tmp, { recursive: true, force: true });

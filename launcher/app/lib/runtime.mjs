@@ -18,7 +18,12 @@ const WRAPPER_ORIGINAL = Buffer.from('48c70101000000c3', 'hex');
 const sha256 = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
 const stamp = (f) => { const s = fs.statSync(f); return `${s.size}:${Math.trunc(s.mtimeMs)}`; };
 
+// Compilación DONELYS del juego (DONELYS-BUILD.json junto a n3.exe): el idioma ya viene integrado (cvar n3_text_language).
+export const NATIVE_LANG = { ENG: 'english', FRA: 'french', GER: 'german', ITA: 'italian', SPA: 'spanish' };
+export const isNativeBuild = (releaseDir) => fs.existsSync(path.join(releaseDir, 'DONELYS-BUILD.json'));
+
 export function runtimeStatus(releaseDir) {
+  if (isNativeBuild(releaseDir)) return { patchable: true, native: true };
   try {
     const dll = fs.readFileSync(path.join(releaseDir, 'rexruntime.dll'));
     if (sha256(dll) !== KNOWN_DLL_SHA256) return { patchable: false, reason: 'rexruntime.dll no es el de la versión alpha 12 verificada; no se parchea una compilación desconocida.' };
@@ -29,6 +34,7 @@ export function runtimeStatus(releaseDir) {
 
 // Devuelve la carpeta desde la que hay que arrancar n3.exe para el idioma pedido.
 export function ensureRuntime({ releaseDir, dataDir, lang }) {
+  if (isNativeBuild(releaseDir)) return { dir: releaseDir, patched: false, native: true };
   if (lang === 'ENG') return { dir: releaseDir, patched: false };
   const code = LANG_CODES[lang];
   if (!code) throw new Error(`Idioma de textos no admitido: ${lang}`);
