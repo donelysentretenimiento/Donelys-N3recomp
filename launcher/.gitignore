@@ -1,0 +1,7 @@
+node_modules/
+dist/
+DONELYS-N3/
+DonelysN3-datos/
+*.log
+# Imágenes propias del usuario (portada y fondo): no se publican / user's own images (cover and background): not published
+caratulas/

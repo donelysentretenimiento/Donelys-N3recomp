@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es-ES">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self' data:; font-src 'self';">
+<title>DONELYS N3</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- refracción del cristal: desplaza el fondo con un mapa de ruido (liquidglassdesign.com: feDisplacementMap) -->
+<svg class="svgdefs" aria-hidden="true" focusable="false"><filter id="lg-refract" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+  <feTurbulence type="fractalNoise" baseFrequency="0.011 0.022" numOctaves="2" seed="4" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+</filter></svg>
+<div class="bg" id="bg" aria-hidden="true"><div class="art" id="bgart"></div></div>
+<div class="dragbar"><span>DONELYS ENTRETENIMIENTO</span></div>
+<div class="app" id="app">
+  <header class="brand">
+    <div class="kicker">DONELYS ENTRETENIMIENTO PRESENTA</div>
+    <div class="n3logo"><b>N3</b><span><small>ナインティナイン・ナイツ</small><i>N</i>INETY-<i>N</i>INE<br><i>N</i>IGHTS</span></div>
+  </header>
+  <nav class="pills" id="navlist" aria-label="Secciones"></nav>
+  <main id="view" class="view"></main>
+  <footer class="bottom">
+    <div class="installed" id="installed"></div>
+    <button class="pill big gold mid" id="playBtn">JUGAR</button>
+    <div class="rt" id="navfoot"></div>
+  </footer>
+</div>
+<div id="busy" class="busy glass" hidden>
+  <div class="busy-title" id="busyTitle"></div>
+  <div class="bar"><i id="busyBar"></i></div>
+  <div class="busy-file" id="busyFile"></div>
+  <button class="pill sm ghost" id="busyCancel">Cancelar</button>
+</div>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
