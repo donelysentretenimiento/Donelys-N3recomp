@@ -41,7 +41,7 @@ DONELYS · N3 es una edición independiente del recompilador nativo de *N3: Nine
 
 ### Cómo jugar
 1. Descarga el **ZIP portátil** de la [última release](https://github.com/donelysentretenimiento/Donelys-N3recomp/releases/latest) y descomprímelo entero en una carpeta.
-2. Abre `Iniciar DONELYS N3.cmd`.
+2. Abre **`DONELYS N3.exe`** (el de la carpeta raíz, con el icono de la portada).
 3. La primera vez, el launcher te pide tu ISO PAL o la carpeta ya extraída. Comprueba la versión por la huella SHA-256 de su ejecutable y configura las rutas solo.
 4. Elige idioma, voces y gráficos en *Ajustes* y pulsa **JUGAR**. En el juego, **F5** abre el menú DONELYS y **F4** el panel técnico del SDK.
 
@@ -89,7 +89,7 @@ DONELYS · N3 is an independent Windows edition of the native recompilation of *
 
 ### How to play
 1. Download the **portable ZIP** from the [latest release](https://github.com/donelysentretenimiento/Donelys-N3recomp/releases/latest) and extract it entirely into a folder.
-2. Open `Iniciar DONELYS N3.cmd`.
+2. Open **`DONELYS N3.exe`** (the one in the root folder, with the cover icon).
 3. On first start the launcher asks for your PAL ISO or the already extracted folder. It checks the version by the SHA-256 of its executable and sets the paths up by itself.
 4. Pick language, voices and graphics under *Ajustes* (Settings) and press **JUGAR** (Play). In game, **F5** opens the DONELYS menu and **F4** the SDK's technical panel.
 
