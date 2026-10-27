@@ -1,0 +1,12 @@
+{
+  "name": "donelys-n3-launcher",
+  "productName": "DONELYS N3",
+  "version": "0.2.0",
+  "description": "DONELYS ENTRETENIMIENTO PRESENTA · N3: Ninety-Nine Nights — lanzador para N3 Recompiled",
+  "type": "module",
+  "main": "main.mjs",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "author": "Donelys Entretenimiento",
+  "homepage": "https://github.com/donelysentretenimiento/Donelys-N3recomp/tree/donelys-launcher/launcher"
+}

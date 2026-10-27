@@ -1,0 +1,14 @@
+{
+  "name": "donelys-n3-launcher-workspace",
+  "version": "0.2.0",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "description": "Launcher de DONELYS ENTRETENIMIENTO para N3 Recompiled / DONELYS ENTRETENIMIENTO launcher for N3 Recompiled",
+  "scripts": {
+    "test": "node test/selftest.mjs",
+    "package": "pwsh -NoProfile -File scripts/package.ps1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
