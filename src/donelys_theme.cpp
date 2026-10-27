@@ -20,7 +20,10 @@ void ApplyDonelysTheme(ImGuiStyle& style, rex::ui::Style& ui) {
   style.WindowBorderSize = 1.0f;
   style.FrameBorderSize = 0.0f;
   style.WindowPadding = {14.0f, 12.0f};
-  style.ItemSpacing = {8.0f, 7.0f};
+  style.ItemSpacing = {10.0f, 9.0f};
+  style.FramePadding = {12.0f, 7.0f};
+  style.TabBorderSize = 0.0f;
+  style.SeparatorTextBorderSize = 1.0f;
 
   auto* c = style.Colors;
   c[ImGuiCol_Text] = Color(pal::kText);

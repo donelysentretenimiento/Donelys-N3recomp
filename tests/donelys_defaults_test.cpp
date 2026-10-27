@@ -49,7 +49,6 @@ int main() {
 
     // A refused write is not counted.
     Require(ApplyDefaults([](std::string_view) { return true; }, [](std::string_view, std::string_view) { return false; }) == 0, "failed writes are not counted");
-    Require(kSettingsKey == "F5" && kSettingsKeyName == "bind_settings", "settings overlay moves to F5");
     std::cout << "Donelys defaults policy passed\n";
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';

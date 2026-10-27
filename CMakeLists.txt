@@ -152,6 +152,8 @@ set(N3_SOURCES
     src/donelys_theme.cpp
     src/donelys_window.cpp
     src/donelys_defaults.cpp
+    src/donelys_menu.cpp
+    src/donelys_menu_view.cpp
 )
 
 if(WIN32)
@@ -165,6 +167,8 @@ endif()
 
 add_subdirectory(tools/gpu)
 rexglue_setup_target(n3 GPU_PLUGINS xenos)
+# The generated code calls this hook, so it lives with it: every target that links the recompiled objects needs it.
+target_sources(n3_recomp PRIVATE src/language_hook.cpp)
 
 target_link_libraries(n3 PRIVATE n3_native n3_game_data n3_menu_assets comdlg32 ole32 uuid shell32 dwmapi)
 if(BUILD_TESTING)
@@ -301,9 +305,22 @@ if(BUILD_TESTING)
     add_executable(n3_graphics_policy_test tests/graphics_policy_test.cpp)
     target_include_directories(n3_graphics_policy_test PRIVATE src)
     add_test(NAME graphics_policy COMMAND n3_graphics_policy_test)
-    foreach(name IN ITEMS palette window defaults)
+    foreach(name IN ITEMS palette window defaults menu)
         add_executable(n3_donelys_${name}_test tests/donelys_${name}_test.cpp)
         target_include_directories(n3_donelys_${name}_test PRIVATE src)
         add_test(NAME donelys_${name} COMMAND n3_donelys_${name}_test)
     endforeach()
+    add_executable(n3_donelys_menu_view_test tests/donelys_menu_view_test.cpp src/donelys_menu_view.cpp src/profile_config.cpp)
+    target_include_directories(n3_donelys_menu_view_test PRIVATE src)
+    target_link_libraries(n3_donelys_menu_view_test PRIVATE rex::runtime)
+    add_test(NAME donelys_menu_view COMMAND n3_donelys_menu_view_test)
+    add_executable(n3_frame_stats_test tests/frame_stats_test.cpp)
+    target_include_directories(n3_frame_stats_test PRIVATE src)
+    add_test(NAME frame_stats COMMAND n3_frame_stats_test)
+    add_executable(n3_pacing_probe tools/pacing_probe.cpp)
+    target_link_libraries(n3_pacing_probe PRIVATE winmm)
+    add_executable(n3_text_language_test tests/text_language_test.cpp)
+    target_include_directories(n3_text_language_test PRIVATE src)
+    target_compile_definitions(n3_text_language_test PRIVATE N3_MANIFEST_PATH="${CMAKE_CURRENT_SOURCE_DIR}/n3_manifest.toml")
+    add_test(NAME text_language COMMAND n3_text_language_test)
 endif()

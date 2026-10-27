@@ -39,6 +39,13 @@ void SaveProfileConfig(const std::filesystem::path& path) {
       values.insert(name, *scalar.get("value"));
     }
   }
+  // The SDK's own default for fullscreen is on, so the "modified" scan above would silently drop an explicit
+  // fullscreen = true. Keep any value the user set, whatever it equals.
+  for (const char* name : {"fullscreen"}) {
+    if (values.contains(name) || rex::cvar::GetFlagSource(name) == rex::cvar::Source::kDefault) continue;
+    const auto scalar = toml::parse("value = " + rex::cvar::GetFlagByName(name));
+    values.insert(name, *scalar.get("value"));
+  }
   Write(path, values);
 }
 

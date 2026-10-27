@@ -17,7 +17,9 @@
 #include "graphics_audit.h"
 #include "donelys_defaults.h"
 #include "donelys_theme.h"
+#include "donelys_menu.h"
 #include "donelys_window.h"
+#include <rex/ui/keybinds.h>
 #include <rex/ui/flags.h>
 class N3App : public rex::ReXApp {
  public:
@@ -55,10 +57,22 @@ class N3App : public rex::ReXApp {
     InstallGraphicsAudit(app_context());
   }
   void OnCreateDialogs(rex::ui::ImGuiDrawer* drawer) override {
-    n3::donelys::ApplyDonelysKeybind();
     graphics_notification_ = CreateGraphicsNotification(drawer);
+    // F5 by default; the SDK's technical settings panel keeps its own key (bind_settings, F4).
+    rex::ui::RegisterBind("bind_donelys_menu", "F5", "Toggle Donelys menu", [this, drawer] {
+      if (donelys_menu_) { donelys_menu_.reset(); return; }
+      n3::menu::MenuHooks hooks;
+      hooks.config_path = game_profile_ / "n3.toml";
+      hooks.set_fullscreen = [this](bool on) { window()->SetFullscreen(on); };
+      // The menu cannot destroy itself while it is drawing, so the app does it on the next UI tick.
+      hooks.request_close = [this] { app_context().CallInUIThreadDeferred([this] { donelys_menu_.reset(); }); };
+      donelys_menu_ = n3::menu::CreateDonelysMenu(drawer, std::move(hooks));
+    });
   }
-  void OnShutdown() override { ShutdownGraphicsAudit(); graphics_notification_.reset(); ShutdownDisplaySettings(); }
+  void OnShutdown() override {
+    donelys_menu_.reset();
+    ShutdownGraphicsAudit(); graphics_notification_.reset(); ShutdownDisplaySettings();
+  }
   void OnWindowPixelSizeChanged(uint32_t width, uint32_t height) override {
     RecordDisplayOutputSize(width, height);
   }
@@ -91,6 +105,7 @@ class N3App : public rex::ReXApp {
 
  private:
   std::unique_ptr<rex::ui::ImGuiDialog> graphics_notification_;
+  std::unique_ptr<rex::ui::ImGuiDialog> donelys_menu_;
   std::filesystem::path game_profile_;
 
   void ConfigureGamePaths(rex::PathConfig& paths) {

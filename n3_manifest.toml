@@ -22,3 +22,18 @@ includes = []
 # Runtime dispatch reaches this previously undiscovered entry during the
 # opening cutscene. Keep the original implementation through code generation.
 0x8215B150 = {}
+
+# The SDK's XGetLanguage always answers English, which picks the English fonts
+# (no accents) and text tables. These are the game's only two calls to it; the
+# hook answers with the n3_text_language cvar and skips the call.
+[[entrypoint.midasm_hook]]
+address = 0x8211019C
+name = "N3GetTextLanguage"
+registers = ["r3"]
+jump_address = 0x821101A0
+
+[[entrypoint.midasm_hook]]
+address = 0x8252FBDC
+name = "N3GetTextLanguage"
+registers = ["r3"]
+jump_address = 0x8252FBE0

@@ -1,5 +1,6 @@
 #include "frame_rate.h"
 #include "frame_rate_policy.h"
+#include "frame_stats.h"
 #include "guest_frame_clock.h"
 #include <rex/ppc.h>
 #include <rex/runtime.h>
@@ -36,16 +37,20 @@ void Write32(uint8_t* base, uint32_t address, uint32_t value) {
 }
 void TracePresent() {
   if (!REXCVAR_GET(frame_pacing_trace)) return;
-  thread_local uint64_t frames = 0;
-  thread_local auto start = std::chrono::steady_clock::now();
-  const auto now = std::chrono::steady_clock::now();
-  ++frames;
-  const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - start).count();
-  if (elapsed >= 2000000) {
-    REXLOG_INFO("N3 frame pacing: {} presentations in {} us", frames, elapsed);
-    start = now;
-    frames = 0;
-  }
+  using Clock = std::chrono::steady_clock;
+  thread_local n3::frames::FrameStats stats;
+  thread_local Clock::time_point window_start = Clock::now(), previous{};
+  const auto now = Clock::now();
+  if (previous.time_since_epoch().count())
+    stats.Add(std::chrono::duration_cast<std::chrono::microseconds>(now - previous).count());
+  previous = now;
+  if (now - window_start < std::chrono::seconds(2)) return;
+  const auto s = stats.Summarize();
+  REXLOG_INFO("N3 frame pacing: target {} | {} frames, {:.1f} fps | frame ms mean {:.2f} p95 {:.2f} p99 {:.2f} max {:.2f} | spikes>2x mean {} | render scale {}x, output {}p",
+              ConfiguredFrameRate(), s.frames, s.fps, s.mean_ms, s.p95_ms, s.p99_ms, s.max_ms, s.spikes,
+              rex::cvar::GetFlagByName("n3_render_scale_active"), rex::cvar::GetFlagByName("n3_display_resolution"));
+  stats.Reset();
+  window_start = now;
 }
 void PacePresent() {
   using Clock = std::chrono::steady_clock;

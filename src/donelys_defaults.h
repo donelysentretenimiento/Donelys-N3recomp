@@ -22,9 +22,6 @@ inline constexpr DefaultValue kDefaults[] = {
     {"n3_vsync", "true"},
 };
 
-inline constexpr std::string_view kSettingsKeyName = "bind_settings";
-inline constexpr std::string_view kSettingsKey = "F5";
-
 // is_default(name) -> bool and set(name, value) -> bool are injected so the policy is testable
 // without the SDK. Returns how many values were written.
 template <class IsDefault, class Set>
@@ -37,7 +34,5 @@ std::size_t ApplyDefaults(IsDefault&& is_default, Set&& set) {
 
 // Applies kDefaults through the SDK cvar store (master switch: n3_donelys_defaults).
 void ApplyDonelysDefaults();
-// Moves the settings overlay to F5 unless the user bound another key.
-void ApplyDonelysKeybind();
 
 }  // namespace n3::donelys
