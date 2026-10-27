@@ -167,6 +167,10 @@ endif()
 
 add_subdirectory(tools/gpu)
 rexglue_setup_target(n3 GPU_PLUGINS xenos)
+
+# "DONELYS N3.exe": arranque con el icono propio para el ZIP portatil (abre DONELYS-N3\DONELYS N3.exe).
+add_executable(donelys_launcher_stub WIN32 tools/launcher_stub/stub.cpp tools/launcher_stub/stub.rc)
+set_target_properties(donelys_launcher_stub PROPERTIES OUTPUT_NAME "DONELYS N3" MSVC_RUNTIME_LIBRARY "MultiThreaded")
 # The generated code calls this hook, so it lives with it: every target that links the recompiled objects needs it.
 target_sources(n3_recomp PRIVATE src/language_hook.cpp)
 
