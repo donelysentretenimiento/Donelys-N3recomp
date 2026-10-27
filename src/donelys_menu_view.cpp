@@ -23,7 +23,7 @@ void MenuView::Draw(ImGuiIO& io) {
   ImGui::SetNextWindowSize({std::min(760.0f, io.DisplaySize.x * 0.9f), std::min(520.0f, io.DisplaySize.y * 0.9f)},
                            ImGuiCond_Always);
   constexpr auto flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-                         ImGuiWindowFlags_NoSavedSettings;
+                         ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
   io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // arrows + Enter work too (the SDK feeds no gamepad to ImGui)
   if (ImGui::Begin("DONELYS · N3: NINETY-NINE NIGHTS", nullptr, flags)) {
     ImGui::SetWindowFontScale(1.15f);
@@ -65,7 +65,7 @@ void MenuView::Draw(ImGuiIO& io) {
       tab("Ventana", kWindowSettings, "El modo sin borde se aplica al arrancar y solo con la ventana en modo ventana.");
       ImGui::EndTabBar();
     }
-    ImGui::SetCursorPosY(ImGui::GetWindowHeight() - 62.0f);
+    ImGui::SetCursorPosY(ImGui::GetWindowHeight() - 78.0f);
     ImGui::Separator();
     if (ImGui::Button("Guardar en n3.toml")) Save();
     buttons_.push_back({"Guardar", ImGui::GetItemRectMin(), ImGui::GetItemRectMax()});
